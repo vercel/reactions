@@ -114,8 +114,7 @@ export default function Home({ reactions }) {
           <strong>Explanation:</strong> This page is statically generated with
           Next.js by fetching data from GitHub. It’s deployed to{' '}
           <a href='https://vercel.com/edge-network'>Vercel’s Edge Network</a>{' '}
-          (CDN). Importantly, this page is regenerated at most every 1 second
-          using{' '}
+          (CDN). Importantly, this page is being regenerated using{' '}
           <a href='https://github.com/zeit/next.js/discussions/11552'>
             Incremental Static Regeneration
           </a>

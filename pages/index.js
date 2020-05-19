@@ -65,6 +65,16 @@ export default function Home({ reactions }) {
       <Head>
         <title>Static Reactions Demo</title>
         <link rel='icon' href='/favicon.ico' />
+        <meta name='twitter:card' content='summary_large_image' />
+        <meta property='og:title' content='Static Reactions Demo' />
+        <meta
+          property='og:description'
+          content='Using Next.js Incremental Static Regeneration'
+        />
+        <meta
+          property='og:image'
+          content='https://og-image.now.sh/Incremental%20Static%20Regeneration%20Demo%20using%20**GitHub%20Reactions**.png?theme=light&md=1&fontSize=100px&images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg'
+        />
       </Head>
 
       <main>

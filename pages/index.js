@@ -123,7 +123,7 @@ export default function Home({ reactions }) {
         </div>
         <ol>
           <li>
-            Each page in a Next.js defines the timeout, in this case 1 second{' '}
+            Each page in a Next.js defines the timeout, in this case 1 second.
           </li>
           <li>
             When a new request comes in, the statically generated page is

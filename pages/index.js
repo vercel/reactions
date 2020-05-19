@@ -1,209 +1,152 @@
 import Head from 'next/head'
 
-export default function Home() {
+export async function getStaticProps() {
+  // {
+  //   "data": {
+  //     "repository": {
+  //       "issue": {
+  //         "reactionGroups": [
+  //           { "content": "THUMBS_UP", "users": { "totalCount": 0 } },
+  //           { "content": "THUMBS_DOWN", "users": { "totalCount": 0 } },
+  //           { "content": "LAUGH", "users": { "totalCount": 0 } },
+  //           { "content": "HOORAY", "users": { "totalCount": 0 } },
+  //           { "content": "CONFUSED", "users": { "totalCount": 0 } },
+  //           { "content": "HEART", "users": { "totalCount": 0 } },
+  //           { "content": "ROCKET", "users": { "totalCount": 0 } },
+  //           { "content": "EYES", "users": { "totalCount": 0 } }
+  //         ]
+  //       }
+  //     }
+  //   }
+  // }
+  const res = await fetch('https://api.github.com/graphql', {
+    method: 'POST',
+    headers: {
+      Authorization: `bearer ${process.env.GITHUB_TOKEN}`
+    },
+    body: JSON.stringify({
+      query: `query {
+        repository(owner:"chibicode", name:"reactions") {
+          issue(number:1) {
+            reactionGroups {
+              content
+              users(first: 0) {
+                totalCount
+              }
+            }
+          }
+        }
+      }`
+    })
+  })
+
+  const json = await res.json()
+  if (res.status !== 200) {
+    console.error(json)
+    throw new Error('Failed to fetch API')
+  }
+
+  // [0, 0, 0, 0, 0, 0, 0, 0]
+  const reactions = json.data.repository.issue.reactionGroups.map(
+    (item) => item.users.totalCount
+  )
+
+  return {
+    props: {
+      reactions
+    },
+    unstable_revalidate: 1
+  }
+}
+
+export default function Home({ reactions }) {
   return (
-    <div className="container">
+    <div className='container'>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Static Reactions Demo</title>
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className="description">
-          Get started by editing <code>pages/index.js</code>
-        </p>
-
-        <div className="grid">
-          <a href="https://nextjs.org/docs" className="card">
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
+        <h3>
+          Reactions on{' '}
+          <a href='https://github.com/chibicode/reactions/issues/1'>
+            github.com/chibicode/reactions/issues/1
           </a>
-
-          <a href="https://nextjs.org/learn" className="card">
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+          :
+        </h3>
+        <div className='line'>
+          <span className='emoji'>👍</span> <strong>{reactions[0]}</strong>
+        </div>
+        <div className='line'>
+          <span className='emoji'>👎</span> <strong>{reactions[1]}</strong>
+        </div>
+        <div className='line'>
+          <span className='emoji'>😄</span> <strong>{reactions[2]}</strong>
+        </div>
+        <div className='line'>
+          <span className='emoji'>🎉</span> <strong>{reactions[3]}</strong>
+        </div>
+        <div className='line'>
+          <span className='emoji'>😕</span> <strong>{reactions[4]}</strong>
+        </div>
+        <div className='line'>
+          <span className='emoji'>🧡</span> <strong>{reactions[5]}</strong>
+        </div>
+        <div className='line'>
+          <span className='emoji'>🚀</span> <strong>{reactions[6]}</strong>
+        </div>
+        <div className='line'>
+          <span className='emoji'>👀</span> <strong>{reactions[7]}</strong>
+        </div>
+        <br />
+        <div>
+          <strong>Explanation:</strong> This page is statically generated with
+          Next.js by fetching data from GitHub. It’s deployed to{' '}
+          <a href='https://vercel.com/edge-network'>Vercel’s Edge Network</a>{' '}
+          (CDN). Importantly, this page is regenerated at most every 1 second
+          using{' '}
+          <a href='https://github.com/zeit/next.js/discussions/11552'>
+            Incremental Static Regeneration
           </a>
-
-          <a
-            href="https://github.com/zeit/next.js/tree/master/examples"
-            className="card"
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="card"
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
+          . Here’s how it works:
+        </div>
+        <ol>
+          <li>
+            Each page in a Next.js defines the timeout, in this case 1 second{' '}
+          </li>
+          <li>
+            When a new request comes in, the statically generated page is
+            served.
+          </li>
+          <li>
+            When a new request comes in, and the defined timeout is exceeded:
+            (1) The statically generated page is served, and (2){' '}
+            <strong>
+              Next.js generates a new version of the page in the background and
+              updates the static page for future requests
+            </strong>
+            .
+          </li>
+          <li>
+            When a new request comes in, the updated static page is served.
+          </li>
+          <li>
+            This enables Incremental Static Regeneration on a per page basis
+            without rebuilding the full app.{' '}
+            <a href='https://github.com/zeit/next.js/discussions/11552'>
+              Learn more here
+            </a>
+            .
+          </li>
+        </ol>
+        <div>
+          <strong>Source:</strong>{' '}
+          <a href='https://github.com/chibicode/reactions/blob/master/pages/index.js'>
+            github.com/chibicode/reactions/blob/master/pages/index.js
           </a>
         </div>
       </main>
-
-      <footer>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
-        </a>
-      </footer>
-
-      <style jsx>{`
-        .container {
-          min-height: 100vh;
-          padding: 0 0.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        footer img {
-          margin-left: 0.5rem;
-        }
-
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-
-        a {
-          color: inherit;
-          text-decoration: none;
-        }
-
-        .title a {
-          color: #0070f3;
-          text-decoration: none;
-        }
-
-        .title a:hover,
-        .title a:focus,
-        .title a:active {
-          text-decoration: underline;
-        }
-
-        .title {
-          margin: 0;
-          line-height: 1.15;
-          font-size: 4rem;
-        }
-
-        .title,
-        .description {
-          text-align: center;
-        }
-
-        .description {
-          line-height: 1.5;
-          font-size: 1.5rem;
-        }
-
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-            DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-        }
-
-        .grid {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-
-          max-width: 800px;
-          margin-top: 3rem;
-        }
-
-        .card {
-          margin: 1rem;
-          flex-basis: 45%;
-          padding: 1.5rem;
-          text-align: left;
-          color: inherit;
-          text-decoration: none;
-          border: 1px solid #eaeaea;
-          border-radius: 10px;
-          transition: color 0.15s ease, border-color 0.15s ease;
-        }
-
-        .card:hover,
-        .card:focus,
-        .card:active {
-          color: #0070f3;
-          border-color: #0070f3;
-        }
-
-        .card h3 {
-          margin: 0 0 1rem 0;
-          font-size: 1.5rem;
-        }
-
-        .card p {
-          margin: 0;
-          font-size: 1.25rem;
-          line-height: 1.5;
-        }
-
-        .logo {
-          height: 1em;
-        }
-
-        @media (max-width: 600px) {
-          .grid {
-            width: 100%;
-            flex-direction: column;
-          }
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
-
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
     </div>
   )
 }

@@ -151,7 +151,7 @@ export default function Home({ reactions }) {
           <strong>Source:</strong>{' '}
           <a href='https://github.com/chibicode/reactions/blob/master/pages/index.js'>
             pages/index.js
-          </a>
+          </a> - `getStaticProps()` fetches the data during static generation, and `unstable_revalidate` specifies the timeout.
         </div>
       </main>
     </div>

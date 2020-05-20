@@ -78,10 +78,11 @@ export default function Home({ reactions }) {
       </Head>
 
       <main>
+        <h2>Static Reactions Demo</h2>
         <h3>
           Reactions on{' '}
           <a href='https://github.com/chibicode/reactions/issues/1'>
-            github.com/chibicode/reactions/issues/1
+            this GitHub issue
           </a>
           :
         </h3>
@@ -112,7 +113,7 @@ export default function Home({ reactions }) {
         <br />
         <div>
           <strong>Explanation:</strong> This page is statically generated with
-          Next.js by fetching data from GitHub. It’s deployed to{' '}
+          <a href="https://nextjs.org/">Next.js</a> by fetching data from GitHub. It’s deployed to{' '}
           <a href='https://vercel.com/edge-network'>Vercel’s Edge Network</a>{' '}
           (CDN). Importantly, this page is being regenerated using{' '}
           <a href='https://github.com/zeit/next.js/discussions/11552'>
@@ -152,7 +153,7 @@ export default function Home({ reactions }) {
         <div>
           <strong>Source:</strong>{' '}
           <a href='https://github.com/chibicode/reactions/blob/master/pages/index.js'>
-            github.com/chibicode/reactions/blob/master/pages/index.js
+            pages/index.js
           </a>
         </div>
       </main>

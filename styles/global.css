@@ -12,17 +12,11 @@ body {
   box-sizing: border-box;
 }
 
-.container {
-  min-height: 100vh;
-  padding: 0 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 main {
-  padding: 2rem 0;
+  padding: 3rem 1rem;
   max-width: 40rem;
+  margin: 0 auto;
 }
 
 a {

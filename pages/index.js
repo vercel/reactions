@@ -117,12 +117,11 @@ export default function Home({ reactions }) {
           (CDN). Importantly, this page is being regenerated using{' '}
           <a href='https://github.com/zeit/next.js/discussions/11552'>
             Incremental Static Regeneration
-          </a>
-          . Here’s how it works:
+          </a> (beta feature in <a href="https://nextjs.org/blog/next-9-4">Next.js 9.4</a>). Here’s how it works:
         </div>
         <ol>
           <li>
-            Each page in a Next.js defines the timeout. For this page, it’s set at 1 second.
+            Each Next.js page can define the timeout. For this page, it’s set at 1 second.
           </li>
           <li>
             When a new request comes in, the statically generated page is

@@ -112,8 +112,7 @@ export default function Home({ reactions }) {
         </div>
         <br />
         <div>
-          <strong>Explanation:</strong> This page is statically generated with
-          <a href="https://nextjs.org/">Next.js</a> by fetching data from GitHub. It’s deployed to{' '}
+          <strong>Explanation:</strong> This page is statically generated with <a href="https://nextjs.org/">Next.js</a> by fetching data from GitHub. It’s deployed to{' '}
           <a href='https://vercel.com/edge-network'>Vercel’s Edge Network</a>{' '}
           (CDN). Importantly, this page is being regenerated using{' '}
           <a href='https://github.com/zeit/next.js/discussions/11552'>

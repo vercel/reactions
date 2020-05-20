@@ -128,7 +128,7 @@ export default function Home({ reactions }) {
             served.
           </li>
           <li>
-            When a new request comes in, and the defined timeout is exceeded:
+            Later, when another request comes in <strong>after the defined timeout is exceeded</strong>:
             (1) The statically generated page is served, and (2){' '}
             <strong>
               Next.js generates a new version of the page in the background and
@@ -137,12 +137,11 @@ export default function Home({ reactions }) {
             .
           </li>
           <li>
-            When a new request comes in, the updated static page is served.
+            Later, when another request comes in <strong>after the regeneration is done</strong>: The updated static page is served.
           </li>
           <li>
             This allows Incremental Static Regeneration on a per-page basis
-            without rebuilding the full app.{' '}
-            <a href='https://github.com/zeit/next.js/discussions/11552'>
+            without rebuilding the full app. It’ll always be fast because users will always get a static response. <a href='https://github.com/zeit/next.js/discussions/11552'>
               Learn more here
             </a>
             .

@@ -122,7 +122,7 @@ export default function Home({ reactions }) {
         </div>
         <ol>
           <li>
-            Each page in a Next.js defines the timeout, in this case 1 second.
+            Each page in a Next.js defines the timeout. For this page, it’s set at 1 second.
           </li>
           <li>
             When a new request comes in, the statically generated page is
@@ -141,7 +141,7 @@ export default function Home({ reactions }) {
             When a new request comes in, the updated static page is served.
           </li>
           <li>
-            This enables Incremental Static Regeneration on a per page basis
+            This allows Incremental Static Regeneration on a per-page basis
             without rebuilding the full app.{' '}
             <a href='https://github.com/zeit/next.js/discussions/11552'>
               Learn more here

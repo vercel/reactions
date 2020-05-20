@@ -132,7 +132,7 @@ export default function Home({ reactions }) {
             (1) The statically generated page is served, and (2){' '}
             <strong>
               Next.js generates a new version of the page in the background and
-              updates the static page for future requests
+              updates the static page for *future* requests
             </strong>
             .
           </li>

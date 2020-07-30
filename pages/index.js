@@ -55,7 +55,7 @@ export async function getStaticProps() {
     props: {
       reactions
     },
-    unstable_revalidate: 1
+    revalidate: 1
   }
 }
 
@@ -113,11 +113,11 @@ export default function Home({ reactions }) {
         <br />
         <div>
           <strong>Explanation:</strong> This page is statically generated with <a href="https://nextjs.org/">Next.js</a> by fetching data from GitHub. It’s deployed to{' '}
-          <a href='https://vercel.com/edge-network'>Vercel’s Edge Network</a>{' '}
-          (CDN). Importantly, this page is being regenerated using{' '}
-          <a href='https://github.com/zeit/next.js/discussions/11552'>
+          <a href='https://vercel.com/docs/v2/edge-network/overview'>Vercel’s Edge Network</a>{' '}
+          (CDN). Importantly, this page is being re-generated using{' '}
+          <a href='https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration'>
             Incremental Static Regeneration
-          </a> (beta feature in <a href="https://nextjs.org/blog/next-9-4">Next.js 9.4</a>). Here’s how it works:
+          </a> (released in <a href="https://nextjs.org/blog/next-9-5">Next.js 9.5</a>). Here’s how it works:
         </div>
         <ol>
           <li>
@@ -141,7 +141,7 @@ export default function Home({ reactions }) {
           </li>
           <li>
             This allows Incremental Static Regeneration on a per-page basis
-            without rebuilding the full app. It’ll always be fast because users will always get a static response. <a href='https://github.com/zeit/next.js/discussions/11552'>
+            without rebuilding the full app. It’ll always be fast because users will always get a static response. <a href='https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration'>
               Learn more here
             </a>
             .
@@ -151,7 +151,7 @@ export default function Home({ reactions }) {
           <strong>Source:</strong>{' '}
           <a href='https://github.com/chibicode/reactions/blob/master/pages/index.js'>
             pages/index.js
-          </a> - `getStaticProps()` fetches the data during static generation, and `unstable_revalidate` specifies the timeout.
+          </a> - `getStaticProps()` fetches the data during static generation, and `revalidate` specifies the timeout.
         </div>
       </main>
     </div>

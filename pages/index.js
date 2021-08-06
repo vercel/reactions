@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from 'next/head';
 
 export async function getStaticProps() {
   // {
@@ -22,7 +22,7 @@ export async function getStaticProps() {
   const res = await fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {
-      Authorization: `bearer ${process.env.GITHUB_TOKEN}`
+      Authorization: `bearer ${process.env.GITHUB_TOKEN}`,
     },
     body: JSON.stringify({
       query: `query {
@@ -36,27 +36,27 @@ export async function getStaticProps() {
             }
           }
         }
-      }`
-    })
-  })
+      }`,
+    }),
+  });
 
-  const json = await res.json()
+  const json = await res.json();
   if (res.status !== 200) {
-    console.error(json)
-    throw new Error('Failed to fetch API')
+    console.error(json);
+    throw new Error('Failed to fetch API');
   }
 
   // [0, 0, 0, 0, 0, 0, 0, 0]
   const reactions = json.data.repository.issue.reactionGroups.map(
     (item) => item.users.totalCount
-  )
+  );
 
   return {
     props: {
-      reactions
+      reactions,
     },
-    revalidate: 1
-  }
+    revalidate: 1,
+  };
 }
 
 export default function Home({ reactions }) {
@@ -86,50 +86,41 @@ export default function Home({ reactions }) {
           </a>
           :
         </h3>
-        <div className='line'>
-          <span className='emoji'>👍</span> <strong>{reactions[0]}</strong>
-        </div>
-        <div className='line'>
-          <span className='emoji'>👎</span> <strong>{reactions[1]}</strong>
-        </div>
-        <div className='line'>
-          <span className='emoji'>😄</span> <strong>{reactions[2]}</strong>
-        </div>
-        <div className='line'>
-          <span className='emoji'>🎉</span> <strong>{reactions[3]}</strong>
-        </div>
-        <div className='line'>
-          <span className='emoji'>😕</span> <strong>{reactions[4]}</strong>
-        </div>
-        <div className='line'>
-          <span className='emoji'>🧡</span> <strong>{reactions[5]}</strong>
-        </div>
-        <div className='line'>
-          <span className='emoji'>🚀</span> <strong>{reactions[6]}</strong>
-        </div>
-        <div className='line'>
-          <span className='emoji'>👀</span> <strong>{reactions[7]}</strong>
-        </div>
+        {['👍', '👎', '😄', '🎉', '😕', '🧡', '🚀', '👀'].map((icon, i) => (
+          <div className='line' key={icon}>
+            <span className='emoji'>{icon}</span>{' '}
+            <strong>{reactions[i]}</strong>
+          </div>
+        ))}
         <br />
         <div>
-          <strong>Explanation:</strong> This page is statically generated with <a href="https://nextjs.org/">Next.js</a> by fetching data from GitHub. It’s deployed to{' '}
-          <a href='https://vercel.com/docs/v2/edge-network/overview'>Vercel’s Edge Network</a>{' '}
+          <strong>Explanation:</strong> This page is statically generated with{' '}
+          <a href='https://nextjs.org/'>Next.js</a> by fetching data from
+          GitHub. It’s deployed to{' '}
+          <a href='https://vercel.com/docs/v2/edge-network/overview'>
+            Vercel’s Edge Network
+          </a>{' '}
           (CDN). Importantly, this page is being re-generated using{' '}
           <a href='https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration'>
             Incremental Static Regeneration
-          </a> (released in <a href="https://nextjs.org/blog/next-9-5">Next.js 9.5</a>). Here’s how it works:
+          </a>{' '}
+          (released in{' '}
+          <a href='https://nextjs.org/blog/next-9-5'>Next.js 9.5</a>). Here’s
+          how it works:
         </div>
         <ol>
           <li>
-            Each Next.js page can define the timeout. For this page, it’s set at 1 second.
+            Each Next.js page can define the timeout. For this page, it’s set at
+            1 second.
           </li>
           <li>
             When a new request comes in, the statically generated page is
             served.
           </li>
           <li>
-            Later, when another request comes in <strong>after the defined timeout is exceeded</strong>:
-            (1) The statically generated page is served, and (2){' '}
+            Later, when another request comes in{' '}
+            <strong>after the defined timeout is exceeded</strong>: (1) The
+            statically generated page is served, and (2){' '}
             <strong>
               Next.js generates a new version of the page in the background and
               updates the static page for *future* requests
@@ -137,11 +128,15 @@ export default function Home({ reactions }) {
             .
           </li>
           <li>
-            Later, when another request comes in <strong>after the regeneration is done</strong>: The updated static page is served.
+            Later, when another request comes in{' '}
+            <strong>after the regeneration is done</strong>: The updated static
+            page is served.
           </li>
           <li>
             This allows Incremental Static Regeneration on a per-page basis
-            without rebuilding the full app. It’ll always be fast because users will always get a static response. <a href='https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration'>
+            without rebuilding the full app. It’ll always be fast because users
+            will always get a static response.{' '}
+            <a href='https://nextjs.org/docs/basic-features/data-fetching#incremental-static-regeneration'>
               Learn more here
             </a>
             .
@@ -151,9 +146,11 @@ export default function Home({ reactions }) {
           <strong>Source:</strong>{' '}
           <a href='https://github.com/chibicode/reactions/blob/master/pages/index.js'>
             pages/index.js
-          </a> - `getStaticProps()` fetches the data during static generation, and `revalidate` specifies the timeout.
+          </a>{' '}
+          - `getStaticProps()` fetches the data during static generation, and
+          `revalidate` specifies the timeout.
         </div>
       </main>
     </div>
-  )
+  );
 }

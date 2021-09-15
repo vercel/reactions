@@ -1,1 +1,1 @@
-# https://reactions-demo.now.sh
+# https://reactions-demo.vercel.app

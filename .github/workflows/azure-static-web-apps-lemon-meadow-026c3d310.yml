@@ -21,6 +21,7 @@ jobs:
       - name: Build And Deploy
         env:
           ENABLE_PREVIEW_FEATURES: true
+          GITHUB_TOKEN: ${{secrets.NEXTJS_TOKEN}}
         id: builddeploy
         uses: Azure/static-web-apps-deploy@latest
         with:

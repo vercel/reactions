@@ -10,7 +10,7 @@ export async function getStaticProps() {
 //             { "content": "THUMBS_DOWN", "users": { "totalCount": 0 } },
 //             { "content": "LAUGH", "users": { "totalCount": 0 } },
 //             { "content": "HOORAY", "users": { "totalCount": 0 } },
-            { "content": "CONFUSED", "users": { "totalCount": 0 } },
+//             { "content": "CONFUSED", "users": { "totalCount": 0 } },
 //             { "content": "HEART", "users": { "totalCount": 0 } },
 //             { "content": "ROCKET", "users": { "totalCount": 0 } },
 //             { "content": "EYES", "users": { "totalCount": 0 } }
@@ -55,7 +55,7 @@ export async function getStaticProps() {
     props: {
       reactions,
     },
-    revalidate: 240,
+    revalidate: 120,
   };
 }
 

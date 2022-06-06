@@ -1,24 +1,24 @@
 import Head from 'next/head';
 
 export async function getStaticProps() {
-  {
-    "data": {
-      "repository": {
-        "issue": {
-          "reactionGroups": [
-            { "content": "THUMBS_UP", "users": { "totalCount": 0 } },
-            { "content": "THUMBS_DOWN", "users": { "totalCount": 0 } },
-            { "content": "LAUGH", "users": { "totalCount": 0 } },
-            { "content": "HOORAY", "users": { "totalCount": 0 } },
-            { "content": "CONFUSED", "users": { "totalCount": 0 } },
-            { "content": "HEART", "users": { "totalCount": 0 } },
-            { "content": "ROCKET", "users": { "totalCount": 0 } },
-            { "content": "EYES", "users": { "totalCount": 0 } }
-          ]
-        }
-      }
-    }
-  }
+//   {
+//     "data": {
+//       "repository": {
+//         "issue": {
+//           "reactionGroups": [
+//             { "content": "THUMBS_UP", "users": { "totalCount": 0 } },
+//             { "content": "THUMBS_DOWN", "users": { "totalCount": 0 } },
+//             { "content": "LAUGH", "users": { "totalCount": 0 } },
+//             { "content": "HOORAY", "users": { "totalCount": 0 } },
+//             { "content": "CONFUSED", "users": { "totalCount": 0 } },
+//             { "content": "HEART", "users": { "totalCount": 0 } },
+//             { "content": "ROCKET", "users": { "totalCount": 0 } },
+//             { "content": "EYES", "users": { "totalCount": 0 } }
+//           ]
+//         }
+//       }
+//     }
+//   }
   const res = await fetch('https://api.github.com/graphql', {
     method: 'POST',
     headers: {
@@ -55,7 +55,7 @@ export async function getStaticProps() {
     props: {
       reactions,
     },
-    revalidate: 1,
+    revalidate: 15,
   };
 }
 

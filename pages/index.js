@@ -87,7 +87,7 @@ export default function Home({ reactions }) {
           :
         </h3>
         <div className="line">
-          <span className="emoji">👍</span> <strong>{reactions[0]}</strong>
+          <span className="emoji">⚽</span> <strong>{reactions[0]}</strong>
         </div>
         <div className="line">
           <span className="emoji">👎</span> <strong>{reactions[1]}</strong>

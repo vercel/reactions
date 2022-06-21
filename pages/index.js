@@ -63,7 +63,7 @@ export default function Home({ reactions }) {
   return (
     <div className="container">
       <Head>
-        <title>Static Reactions Demo</title>
+        <title>Sachin Rathor Reactions Demo</title>
         <link rel="icon" href="/favicon.ico" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="og:title" content="Static Reactions Demo" />
